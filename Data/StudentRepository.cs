@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace ITHSManagement.Data
 {
-    public class StudentQuerys
+    public class StudentRepository
     {
         EFContext Context;
 
-        public StudentQuerys(EFContext context)
+        public StudentRepository(EFContext context)
         {
             this.Context = context;
         }
-
-        public void AddStudent(Student student)
+        public int GetStudentById(int studentId)
+        {
+            return studentId;
+        }
+        public int InsertStudent(Student student)
         {
             User user = new User();
             user.UserType = UserTypeEnum.Student;
@@ -23,20 +26,24 @@ namespace ITHSManagement.Data
 
             Context.Add(student);
             Context.SaveChanges();
+
+
+            return user.Id;
         }
 
-        public void EditUser(Student student)
+        public void UpdateStudent(Student student)
         {
             var query = Context.Student
                 .Find(student.UserId);
-            query = student;
+
+            student.FirstName = query.FirstName;
+            student.LastName = query.LastName;
+            student.Birthdate = query.Birthdate;
 
             Context.Update(student);
             Context.SaveChanges();
         }
-
-
-        public void DeleteUser(Student student)
+        public void DeleteStudent(Student student)
         {
             Console.WriteLine($"Deleting {student.UserId}");
             var query = Context.User
@@ -44,7 +51,13 @@ namespace ITHSManagement.Data
 
             Context.Remove(query);
             Context.SaveChanges();
-            //OnInitializedAsync();
+        }
+        public void InsertContactInfo(ContactInfo ci)
+        {
+
+            Context.Add(ci);
+            Context.SaveChanges();
+
         }
     }
 }

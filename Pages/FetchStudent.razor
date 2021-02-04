@@ -3,51 +3,91 @@
 @using ITHSManagement.Data
 @using ITHSManagement.Models
 @inject FetchStudents Fetch
-@inject StudentQuerys Context
+@inject StudentRepository Context
 
 
 <h1>Student List</h1>
 
 
-
-@if (students == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Birth Date</th>
+            <th>User Id</th>
+            <th>Delete User</th>
+            <th>Edit User</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in students)
+        {
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Birth Date</th>
-                <th>User Id</th>
-                <th>Delete User</th>
+                <td>@s.FirstName</td>
+                <td>@s.LastName</td>
+                <td>@s.Birthdate.ToShortDateString()</td>
+                <td>@s.UserId</td>
+                <td><button type="button" class="btn-close" aria-label="Close" @onclick="() => DeleteUser(s)">X</button></td>
+                <td><button type="button" class="btn btn-primary" data-target="exampleModal"  @onclick="() =>Modal(s)">Edit</button></td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var s in students)
-            {
-                <tr>
-                    <td>@s.FirstName</td>
-                    <td>@s.LastName</td>
-                    <td>@s.Birthdate.ToShortDateString()</td>
-                    <td>@s.UserId</td>
-                    <td><button type="button" class="btn-close" aria-label="Close" @onclick="() => DeleteUser(s)">X</button></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+@if (ShowDialog)
+{
+
+<div class="modal fade show d-block" id="exampleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleLabel">Add Employee</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" @bind-value="student.FirstName" />
+                    <br />
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" @bind-value="student.LastName" />
+                    <br />
+                    <label for="birthDate">BirthDate &nbsp;</label>
+                    <input type="date" id="birthDate" @bind-value="student.Birthdate" />
+                    <br />
+                    <input type="submit" class="btn btn-success" @onclick="()=> EditUser(student)" />
+                    <button type="submit" class="btn btn-alert">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 }
 
 @code {
+    private bool ShowDialog;
 
     private IList<Student> students = new List<Student>();
+    private Student student = new Student();
+
+    private void Modal(Student s)
+    {
+        ShowDialog = true;
+        this.student = s;
+
+    }
+
+    private async void EditUser(Student student)
+    {
+        Context.UpdateStudent(student);
+        students = await Fetch.FetchS();
+
+        this.StateHasChanged();
+    }
 
     private async void DeleteUser(Student student)
     {
-        Context.DeleteUser(student);
+        Context.DeleteStudent(student);
         students = await Fetch.FetchS();
 
         this.StateHasChanged();
@@ -56,5 +96,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         students = await Fetch.FetchS();
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿@page "/adduser"
 @using ITHSManagement.Models;
 @using ITHSManagement.Data;
-@inject StudentQuerys sq;
-<h1>Student service page LOL :D</h1>
+@inject StudentRepository sq;
+<h1>Student service</h1>
 
 
 <form id="studentInfo">
@@ -15,18 +15,67 @@
     <label for="birthDate">BirthDate &nbsp;</label>
     <input type="date" id="birthDate" @bind-value="student.Birthdate"/>
     <br />
-    <input type="submit" class="btn btn-dark" @onclick="AddStudent" />
+    <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
+    <label for="Email">Email</label>
+    <input type="text" id="Email" @bind-value="ic.Email" />
+    <br />
+    <label for="Phone">Phonenumber</label>
+    <input type="text" id="Phone" @bind-value="ic.Phone" />
+    <br />
+    <label for="Street">Street &nbsp;</label>
+    <input type="text" id="Street" @bind-value="ic.Street" />
+    <br />
+    <label for="Zipcode">Zipcode</label>
+    <input type="text" id="Zipcode" @bind-value="ic.Zipcode" />
+    <br />
+    <label for="City">City &nbsp;</label>
+    <input type="text" id="City" @bind-value="ic.City" />
+    <br />
+    <input type="submit" class="btn btn-success" @onclick="AddStudent" />
     <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
 </form>
-
-
 @code {
 
+    public class InputContact
+    {
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Street { get; set; }
+        public string Zipcode { get; set; }
+        public string City { get; set; }
+    }
 
+    private InputContact ic = new InputContact();
     private Student student = new Student();
+
 
     private void AddStudent()
     {
-        sq.AddStudent(student);
+        int userId = sq.InsertStudent(student);
+
+        if (ic.Email != null)
+        {
+            ContactInfo ci = new ContactInfo();
+            ci.UserId = userId;
+            ci.Contact = ic.Email;
+            ci.ContactType = ContactTypeEnum.Email;
+            sq.InsertContactInfo(ci);
+        }
+        if (ic.Phone != null)
+        {
+            ContactInfo ci = new ContactInfo();
+            ci.UserId = userId;
+            ci.Contact = ic.Phone;
+            ci.ContactType = ContactTypeEnum.PhoneNumber;
+            sq.InsertContactInfo(ci);
+        }
+        if (ic.Street != null)
+        {
+            ContactInfo ci = new ContactInfo();
+            ci.UserId = userId;
+            ci.Contact = ic.Street;
+            ci.ContactType = ContactTypeEnum.Street;
+            sq.InsertContactInfo(ci);
+        }
     }
 }

@@ -18,16 +18,10 @@ namespace ITHSManagement.Data
         {
             return programId;
         }
-        public int InsertProgram(Student student)
+        public void InsertProgram(StudentProgram utbildning)
         {
-            User user = new User();
-            user.UserType = UserTypeEnum.Student;
-            student.User = user;
-
-            Context.Add(student);
+            Context.Add(utbildning);
             Context.SaveChanges();
-
-            return user.Id;
         }
 
         public void UpdateStudent(Student student)

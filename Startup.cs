@@ -34,6 +34,7 @@ namespace ITHSManagement
             services.AddServerSideBlazor();
             services.AddScoped<FetchStudents>();
             services.AddScoped<StudentRepository>();
+            services.AddScoped<ProgramRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

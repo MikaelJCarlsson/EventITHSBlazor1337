@@ -1,5 +1,38 @@
-﻿<h3>Program</h3>
+﻿@page "/program";
+@using ITHSManagement.Data;
+@using ITHSManagement.Models;
+@inject ProgramRepository pro; 
+
+<h3>Program</h3>
+
+
+
+<form id="programInfo">
+    <label for="program">Titel</label>
+    <input type="text" id="program" @bind-value="program.ProgramName" />
+    <br />
+    <label for="startdate">Start Datum</label>
+    <input type="date" id="startdate" @bind-value="program.StartDate" />
+    <br />
+    <label for="enddate">Slut Datum &nbsp;</label>
+    <input type="date" id="enddate" @bind-value="program.EndDate" />
+    <br />
+    <label for="Description">Beskrivning</label>
+    <input type="text" id="Description" @bind-value="program.Description" />
+    <br />
+    <label for="courseadmin">Kurs Ansvarig</label>
+    <input type="text" id="courseadmin" @bind-value="program.CourseAdmin" />
+
+    <input type="submit" class="btn btn-success" @onclick="AddProgram" />
+    <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
+</form>
 
 @code {
 
+    private StudentProgram program = new StudentProgram();
+
+    private void AddProgram()
+    {
+        pro.InsertProgram(program);
+    }
 }

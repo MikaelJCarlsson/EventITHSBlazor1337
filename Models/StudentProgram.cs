@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ITHSManagement.Models
 {
-    public class Program
+    public class StudentProgram
     {
         public int Id { get; set; }
         public string ProgramName { get; set; }

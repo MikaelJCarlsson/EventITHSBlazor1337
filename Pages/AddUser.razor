@@ -1,0 +1,42 @@
+﻿@page "/adduser"
+@using ITHSManagement.Models;
+
+<h1>Student service page LOL :D</h1>
+
+
+<form id="studentInfo">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" @bind-value="student.FirstName" />
+    <br />
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" @bind-value="student.LastName" />
+    <br />
+    <label for="birthDate">BirthDate &nbsp;</label>
+    <input type="date" id="birthDate" @bind-value="student.Birthdate"/>
+    <br />
+    <input type="submit" class="btn btn-dark" @onclick="AddStudent" />
+    <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
+</form>
+
+
+@code {
+
+
+    private Student student = new Student();
+
+    private void AddStudent()
+    {
+        Console.WriteLine("Hello");
+            using (var context = new EFContext())
+            {
+                User user = new User();
+                user.UserType = UserTypeEnum.Student;
+                student.User = user;
+
+                context.Add(student);
+                context.SaveChanges();
+            Console.WriteLine("Hello again");
+            }
+        
+    }
+}

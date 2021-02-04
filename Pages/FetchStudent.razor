@@ -3,6 +3,7 @@
 @using ITHSManagement.Data
 @using ITHSManagement.Models
 @inject FetchStudents Fetch
+@inject StudentQuerys Context
 
 
 <h1>Student List</h1>
@@ -44,20 +45,14 @@ else
 
     private IList<Student> students = new List<Student>();
 
-    private void DeleteUser(Student student)
+    private async void DeleteUser(Student student)
     {
-        Console.WriteLine($"Deleting {student.UserId}");
-        using (var context = new EFContext())
-        {
-            var query = context.User
-                .Find(student.UserId);
+        Context.DeleteUser(student);
+        students = await Fetch.FetchS();
 
-            context.Remove(query);
-            context.SaveChanges();
-
-        }
-        OnInitializedAsync();
+        this.StateHasChanged();
     }
+
     protected override async Task OnInitializedAsync()
     {
         students = await Fetch.FetchS();

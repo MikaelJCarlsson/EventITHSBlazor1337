@@ -8,17 +8,18 @@ namespace ITHSManagement.Data
 {
     public class FetchStudents
     {
+        EFContext Context;
+        public FetchStudents(EFContext context)
+        {
+            this.Context = context;
+        }
 
         public Task<List<Student>> FetchS()
         {
-            using(var context = new EFContext())
-            {
                 List<Student> results = new List<Student>();
-                var query = context.Student.ToList();
+                var query = Context.Student.ToList();
 
                 return Task.FromResult(query);
-            }
-            
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿@page "/adduser"
 @using ITHSManagement.Models;
-
+@using ITHSManagement.Data;
+@inject StudentQuerys sq;
 <h1>Student service page LOL :D</h1>
 
 
@@ -26,17 +27,6 @@
 
     private void AddStudent()
     {
-        Console.WriteLine("Hello");
-            using (var context = new EFContext())
-            {
-                User user = new User();
-                user.UserType = UserTypeEnum.Student;
-                student.User = user;
-
-                context.Add(student);
-                context.SaveChanges();
-            Console.WriteLine("Hello again");
-            }
-        
+        sq.AddStudent(student);
     }
 }

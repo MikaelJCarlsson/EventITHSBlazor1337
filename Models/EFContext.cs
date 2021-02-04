@@ -12,24 +12,24 @@ namespace ITHSManagement.Models
      
      */
 
-    class EFContext : DbContext
+    public class EFContext : DbContext
     {
-        private string connectionString;
+        //private string connectionString;
 
-        public EFContext() : base()
+        public EFContext(DbContextOptions<EFContext> options) : base(options)
         {
-            var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsettings.json", optional: false);
+            //var builder = new ConfigurationBuilder();
+            //builder.AddJsonFile("appsettings.json", optional: false);
 
-            var configuration = builder.Build();
-            connectionString = configuration.GetConnectionString("sqlConnection");
+            //var configuration = builder.Build();
+            //connectionString = configuration.GetConnectionString("sqlConnection");
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(connectionString);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

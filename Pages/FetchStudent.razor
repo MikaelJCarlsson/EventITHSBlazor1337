@@ -16,21 +16,24 @@
             <th>Last Name</th>
             <th>Birth Date</th>
             <th>User Id</th>
-            <th>Delete User</th>
             <th>Edit User</th>
+            <th>Delete User</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var s in students)
         {
-            <tr>
-                <td>@s.FirstName</td>
-                <td>@s.LastName</td>
-                <td>@s.Birthdate.ToShortDateString()</td>
-                <td>@s.UserId</td>
-                <td><button type="button" class="btn-close" aria-label="Close" @onclick="() => DeleteUser(s)">X</button></td>
-                <td><button type="button" class="btn btn-primary" data-target="exampleModal"  @onclick="() =>Modal(s)">Edit</button></td>
-            </tr>
+        <tr>
+            <td>@s.FirstName</td>
+            <td>@s.LastName</td>
+            <td>@s.Birthdate.ToShortDateString()</td>
+            <td>@s.UserId</td>
+ 
+            <td><button type="button" class="oi oi-wrench" data-target="exampleModal" @onclick="() =>Modal(s)"></button></td>
+            <td><button type="button" class="oi oi-x" aria-label="Close" @onclick="() => DeleteUser(s)"></button></td>
+            @*<td><button type="button" class="btn-close" aria-label="Close" @onclick="() => DeleteUser(s)">X</button></td>
+        <td><button type="button" class="btn btn-primary" data-target="exampleModal" @onclick="() =>Modal(s)">Edit</button></td>*@
+        </tr>
         }
     </tbody>
 </table>
@@ -46,17 +49,51 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" @bind-value="student.FirstName" />
-                    <br />
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" @bind-value="student.LastName" />
-                    <br />
-                    <label for="birthDate">BirthDate &nbsp;</label>
-                    <input type="date" id="birthDate" @bind-value="student.Birthdate" />
+
+                    <div class="container-fluid">
+                        <div class="row justify-content-start">
+                            <div class="showProgram">
+                                <label for="firstName">First Name</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="firstName" @bind-value="student.FirstName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row justify-content-start">
+                            <div class="showProgram">
+                                <label for="lastName">Last Name</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="lastName" @bind-value="student.LastName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row justify-content-start">
+                            <div class="showProgram">
+                                <label for="birthDate">BirthDate &nbsp;</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="date" id="birthDate" style="width:211px" @bind-value="student.Birthdate" />
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<label for="firstName">First Name</label>
+        <input type="text" id="firstName" @bind-value="student.FirstName" />
+        <br />
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" @bind-value="student.LastName" />
+        <br />
+        <label for="birthDate">BirthDate &nbsp;</label>
+        <input type="date" id="birthDate" @bind-value="student.Birthdate" />*@
                     <br />
                     <input type="submit" class="btn btn-success" @onclick="()=> EditUser(student)" />
-                    <button type="submit" class="btn btn-alert">Cancel</button>
+                    <button type="submit" class="btn btn-secondary">Cancel</button>
                 </form>
             </div>
         </div>

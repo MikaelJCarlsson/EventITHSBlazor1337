@@ -4,6 +4,18 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.showUser {
+    width: 7rem;
+}
+
+.showProgram {
+    width: 7rem;
+}
+
+#program, #startdate, #enddate, #Description, #courseadmin, #firstName, #lastName, #birthDate, #Email, #Phone, #Street, #Zipcode, #City {
+    padding-left: 8px;
+}
+
 a, .btn-link {
     color: #0366d6;
 }

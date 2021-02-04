@@ -6,17 +6,112 @@
 
 
 <form id="studentInfo">
-    <label for="firstName">First Name</label>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="firstName">First Name</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="firstName" @bind-value="student.FirstName" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="lastName">Last Name</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="lastName" @bind-value="student.LastName" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="birthDate">BirthDate &nbsp;</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" 
+                       style="width:211px" 
+                       id="birthDate" 
+                       required pattern="[0-9]{4}-[0-9]{2}" 
+                       @bind-value="student.Birthdate" />
+                @*required pattern="\d{4}-\d{2}-\d{2}"*@
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="Email">Email</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="Email" @bind-value="ic.Email" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="Phone">Phonenumber</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="Phone" @bind-value="ic.Phone" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="Street">Street &nbsp;</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="Street" @bind-value="ic.Street" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="Zipcode">Zipcode</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="Zipcode" @bind-value="ic.Zipcode" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showUser">
+                <label for="City">City &nbsp;</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="City" @bind-value="ic.City" />
+            </div>
+        </div>
+    </div>
+
+
+    <!--<label for="firstName">First Name</label>
     <input type="text" id="firstName" @bind-value="student.FirstName" />
     <br />
     <label for="lastName">Last Name</label>
     <input type="text" id="lastName" @bind-value="student.LastName" />
     <br />
     <label for="birthDate">BirthDate &nbsp;</label>
-    <input type="date" id="birthDate" @bind-value="student.Birthdate"/>
-    <br />
+    <input type="date" id="birthDate" @bind-value="student.Birthdate" />
+    <br />-->
     <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
-    <label for="Email">Email</label>
+    <!--<label for="Email">Email</label>
     <input type="text" id="Email" @bind-value="ic.Email" />
     <br />
     <label for="Phone">Phonenumber</label>
@@ -29,7 +124,7 @@
     <input type="text" id="Zipcode" @bind-value="ic.Zipcode" />
     <br />
     <label for="City">City &nbsp;</label>
-    <input type="text" id="City" @bind-value="ic.City" />
+    <input type="text" id="City" @bind-value="ic.City" />-->
     <br />
     <input type="submit" class="btn btn-success" @onclick="AddStudent" />
     <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->

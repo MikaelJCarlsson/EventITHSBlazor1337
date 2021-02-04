@@ -3,26 +3,84 @@
 @using ITHSManagement.Models;
 @inject ProgramRepository pro; 
 
-<h3>Program</h3>
+<h1>Program</h1>
 
 
 
 <form id="programInfo">
-    <label for="program">Titel</label>
-    <input type="text" id="program" @bind-value="program.ProgramName" />
-    <br />
-    <label for="startdate">Start Datum</label>
-    <input type="date" id="startdate" @bind-value="program.StartDate" />
-    <br />
-    <label for="enddate">Slut Datum &nbsp;</label>
-    <input type="date" id="enddate" @bind-value="program.EndDate" />
-    <br />
-    <label for="Description">Beskrivning</label>
-    <input type="text" id="Description" @bind-value="program.Description" />
-    <br />
-    <label for="courseadmin">Kurs Ansvarig</label>
-    <input type="text" id="courseadmin" @bind-value="program.CourseAdmin" />
 
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="program">Titel</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="program" @bind-value="program.ProgramName" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="startdate">Startdatum</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" id="startdate" style="width:211px" @bind-value="program.StartDate" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="enddate">Slutdatum &nbsp;</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="date" id="enddate" style="width:211px" @bind-value="program.EndDate" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="Description">Beskrivning</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="Description" @bind-value="program.Description" />
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="courseadmin">Kursansvarig</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="courseadmin" @bind-value="program.CourseAdmin" />
+
+            </div>
+        </div>
+    </div>
+
+
+    @*<label for="program">Titel</label>
+        <input type="text" id="program" @bind-value="program.ProgramName" />
+        <br />
+        <label for="startdate">Start Datum</label>
+        <input type="date" id="startdate" @bind-value="program.StartDate" />
+        <br />
+        <label for="enddate">Slut Datum &nbsp;</label>
+        <input type="date" id="enddate" @bind-value="program.EndDate" />
+        <br />
+        <label for="Description">Beskrivning</label>
+        <input type="text" id="Description" @bind-value="program.Description" />
+        <br />
+        <label for="courseadmin">Kurs Ansvarig</label>
+        <input type="text" id="courseadmin" @bind-value="program.CourseAdmin" />*@
+    <br />
     <input type="submit" class="btn btn-success" @onclick="AddProgram" />
     <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
 </form>

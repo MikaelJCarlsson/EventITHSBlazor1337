@@ -2,6 +2,10 @@
 @using ITHSManagement.Models;
 @using ITHSManagement.Data;
 @inject StudentRepository sq;
+
+@inject EmployeeService EmployeeService
+
+
 <h1>Student service</h1>
 
 
@@ -35,10 +39,10 @@
                 <label for="birthDate">BirthDate &nbsp;</label>
             </div>
             <div class="col-sm-4">
-                <input type="date" 
-                       style="width:211px" 
-                       id="birthDate" 
-                       required pattern="[0-9]{4}-[0-9]{2}" 
+                <input type="date"
+                       style="width:211px"
+                       id="birthDate"
+                       required pattern="[0-9]{4}-[0-9]{2}"
                        @bind-value="student.Birthdate" />
                 @*required pattern="\d{4}-\d{2}-\d{2}"*@
             </div>
@@ -101,7 +105,8 @@
     </div>
 
 
-    <!--<label for="firstName">First Name</label>
+    <!--Above code is formated from this.
+        <label for="firstName">First Name</label>
     <input type="text" id="firstName" @bind-value="student.FirstName" />
     <br />
     <label for="lastName">Last Name</label>
@@ -129,7 +134,53 @@
     <input type="submit" class="btn btn-success" @onclick="AddStudent" />
     <!-- <button class="btn btn-primary" @onclick="AddStudent">AddStudent</button> -->
 </form>
+
+@if (studentExcel == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <br />
+    <br />
+    <h3 class="studentList">This list is generated from an excel spreadsheet!</h3>
+    <br />
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>@*BirthDate*@</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var stud in studentExcel)
+            {
+                <tr>
+                    <td>@stud.FirstName</td>
+                    <td>@stud.LastName</td>
+                    @*<td>@stud.Birthdate</td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 @code {
+    public List<Student> studentExcel = new List<Student>();
+
+    private List<Student> ReadExcel()
+    {
+        studentExcel = EmployeeService.GetEmployeesFromExcel();
+        return studentExcel;
+    }
+
+    protected override void OnInitialized()
+    {
+        ReadExcel();
+    }
+
+
+
 
     public class InputContact
     {

@@ -35,6 +35,7 @@ namespace ITHSManagement
             services.AddScoped<FetchStudents>();
             services.AddScoped<StudentRepository>();
             services.AddScoped<ProgramRepository>();
+            services.AddScoped<EmployeeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

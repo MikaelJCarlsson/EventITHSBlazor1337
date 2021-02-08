@@ -12,7 +12,13 @@ namespace ITHSManagement.Data
 
         public StudentRepository(EFContext context)
         {
-            this.Context = context;
+            Context = context;
+        }
+        public Task<List<Student>> GetAllStudents()
+        {
+            var query = Context.Student.ToList();
+
+            return Task.FromResult(query);
         }
         public int GetStudentById(int studentId)
         {

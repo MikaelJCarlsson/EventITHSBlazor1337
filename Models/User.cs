@@ -13,7 +13,9 @@ namespace ITHSManagement.Models
         [Key]
         public int Id { get; set; }
         public UserTypeEnum UserType { get; set; }
-        public ICollection<Student> Student { get; set; }
+        public ICollection <Programme> Programme { get; set; }
+        public ICollection <Course> Course { get; set; }
+        public ICollection <Group> Group { get; set; }
 
     }
 

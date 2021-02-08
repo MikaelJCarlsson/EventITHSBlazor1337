@@ -1,0 +1,57 @@
+﻿@page "/showprograms"
+@using ITHSManagement.Data
+@using ITHSManagement.Models
+@inject ProgramRepository context
+<h3>ShowPrograms</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Utbildning</th>
+            <th>Yh Nummer</th>
+            <th>Start Datum</th>
+            <th>Slut Datum</th>
+            <th>Program Ansvarig</th>
+            <th>ID</th>
+            <th>Editera</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in programmes)
+        {
+            <tr>
+                <td>@p.ProgramName</td>
+                <td>@p.YhNumber</td>
+                <td>@p.StartDate.ToShortDateString()</td>
+                <td>@p.EndDate.ToShortDateString()</td>
+                <td>@p.CourseAdmin</td>
+                <td><a href="editprogramme/@p.Id">Edit</a></td>
+                <td>@p.Id</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    
+
+        private bool ShowDialog;
+            private Programme programme = new Programme();
+            private ICollection<Programme> programmes;
+
+            private void Modal(Programme p)
+            {
+                ShowDialog = true;
+                this.programme = p;
+            }
+            protected override async Task OnInitializedAsync()
+            {
+                programmes = await context.GetAllProgrammes();
+                
+            }
+            private void DeleteProgramme()
+            {
+
+            }
+}

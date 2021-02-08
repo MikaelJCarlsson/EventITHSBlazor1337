@@ -2,7 +2,6 @@
 
 @using ITHSManagement.Data
 @using ITHSManagement.Models
-@inject FetchStudents Fetch
 @inject StudentRepository Context
 
 
@@ -18,7 +17,7 @@
             <th>User Id</th>
             <th>Options</th>
             @*<th>Edit User</th>
-            <th>Delete User</th>*@
+                <th>Delete User</th>*@
         </tr>
     </thead>
     <tbody>
@@ -30,8 +29,10 @@
                 <td>@s.Birthdate.ToShortDateString()</td>
                 <td>@s.UserId</td>
 
-                <td><button type="button" class="btn btn-primary" data-target="exampleModal" @onclick="() =>Modal(s)">Edit</button>
-                <button type="button" class="btn btn-danger" aria-label="Close" @onclick="() => DeleteUser(s)">Delete</button></td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-target="exampleModal" @onclick="() =>Modal(s)">Edit</button>
+                    <button type="button" class="btn btn-danger" aria-label="Close" @onclick="() => DeleteUser(s)">Delete</button>
+                </td>
 
             </tr>
         }
@@ -39,9 +40,9 @@
 </table>
 
 @*<h3>Lite andra ikoner som man kanske kan använda [Rad 34]:</h3>
-<td><button type="button" class="oi oi-wrench" data-target="exampleModal"></button></td>
-<button type="button" class="oi oi-x" aria-label="Close"></button>
-<td><button type="button" class="btn-close" aria-label="Close">X</button></td>*@
+    <td><button type="button" class="oi oi-wrench" data-target="exampleModal"></button></td>
+    <button type="button" class="oi oi-x" aria-label="Close"></button>
+    <td><button type="button" class="btn-close" aria-label="Close">X</button></td>*@
 
 @if (ShowDialog)
 {
@@ -89,15 +90,7 @@
                             </div>
                         </div>
 
-                        @*Original text. The one above is formated.
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" @bind-value="student.FirstName" />
-        <br />
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" @bind-value="student.LastName" />
-        <br />
-        <label for="birthDate">BirthDate &nbsp;</label>
-        <input type="date" id="birthDate" @bind-value="student.Birthdate" />*@
+
                         <br />
                         <input type="submit" class="btn btn-success" @onclick="()=> EditUser(student)" />
                         <button type="submit" class="btn btn-secondary">Cancel</button>
@@ -108,6 +101,15 @@
     </div>
 }
 
+@*Original text. The one above is formated.
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" @bind-value="student.FirstName" />
+    <br />
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" @bind-value="student.LastName" />
+    <br />
+    <label for="birthDate">BirthDate &nbsp;</label>
+    <input type="date" id="birthDate" @bind-value="student.Birthdate" />*@
 @code {
     private bool ShowDialog;
 
@@ -123,7 +125,7 @@
     private async void EditUser(Student student)
     {
         Context.UpdateStudent(student);
-        students = await Fetch.FetchS();
+        students = await Context.GetAllStudents();
 
         this.StateHasChanged();
     }
@@ -131,14 +133,14 @@
     private async void DeleteUser(Student student)
     {
         Context.DeleteStudent(student);
-        students = await Fetch.FetchS();
+        students = await Context.GetAllStudents();
 
         this.StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        students = await Fetch.FetchS();
+        students = await Context.GetAllStudents();
 
     }
 }

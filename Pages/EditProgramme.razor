@@ -1,0 +1,20 @@
+﻿@page "/editprogramme/{programmeid}"
+@using ITHSManagement.Data
+@using ITHSManagement.Models
+@inject ProgramRepository Context
+<h3>Edit Programme</h3>
+
+
+
+@code {
+
+    [Parameter]
+    public string programmeid { get; set; }
+    public Programme Programme { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Programme = await Context.GetProgramById(Int32.Parse(programmeid));
+
+    }
+}

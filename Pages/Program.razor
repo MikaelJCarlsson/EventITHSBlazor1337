@@ -64,7 +64,17 @@
             </div>
         </div>
     </div>
+    <div class="container-fluid">
+        <div class="row justify-content-start">
+            <div class="showProgram">
+                <label for="courseadmin">Yh Nummer</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" id="courseadmin" @bind-value="program.YhNumber" />
 
+            </div>
+        </div>
+    </div>
 
     @*<label for="program">Titel</label>
         <input type="text" id="program" @bind-value="program.ProgramName" />
@@ -87,7 +97,7 @@
 
 @code {
 
-    private StudentProgram program = new StudentProgram();
+    private Programme program = new Programme();
 
     private void AddProgram()
     {

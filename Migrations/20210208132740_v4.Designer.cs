@@ -4,65 +4,22 @@ using ITHSManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ITHSManagement.Migrations
 {
     [DbContext(typeof(EFContext))]
-    partial class EFContextModelSnapshot : ModelSnapshot
+    [Migration("20210208132740_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
-
-            modelBuilder.Entity("CourseProgramme", b =>
-                {
-                    b.Property<int>("CoursesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProgrammesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CoursesId", "ProgrammesId");
-
-                    b.HasIndex("ProgrammesId");
-
-                    b.ToTable("CourseProgramme");
-                });
-
-            modelBuilder.Entity("CourseUser", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MembersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("CourseUser");
-                });
-
-            modelBuilder.Entity("GroupUser", b =>
-                {
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MembersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GroupId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("GroupUser");
-                });
 
             modelBuilder.Entity("ITHSManagement.Models.CompRep", b =>
                 {
@@ -246,12 +203,9 @@ namespace ITHSManagement.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("YhNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Programmes");
+                    b.ToTable("Programme");
                 });
 
             modelBuilder.Entity("ITHSManagement.Models.Student", b =>
@@ -288,6 +242,36 @@ namespace ITHSManagement.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("ITHSManagement.Models.UserCourse", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("UserCourse");
+                });
+
+            modelBuilder.Entity("ITHSManagement.Models.UserGroup", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("UserGroup");
+                });
+
             modelBuilder.Entity("ProgrammeUser", b =>
                 {
                     b.Property<int>("MembersId")
@@ -301,51 +285,6 @@ namespace ITHSManagement.Migrations
                     b.HasIndex("ProgrammeId");
 
                     b.ToTable("ProgrammeUser");
-                });
-
-            modelBuilder.Entity("CourseProgramme", b =>
-                {
-                    b.HasOne("ITHSManagement.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CoursesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITHSManagement.Models.Programme", null)
-                        .WithMany()
-                        .HasForeignKey("ProgrammesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseUser", b =>
-                {
-                    b.HasOne("ITHSManagement.Models.Course", null)
-                        .WithMany()
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITHSManagement.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("GroupUser", b =>
-                {
-                    b.HasOne("ITHSManagement.Models.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ITHSManagement.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("ITHSManagement.Models.CompRep", b =>
@@ -415,6 +354,44 @@ namespace ITHSManagement.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITHSManagement.Models.UserCourse", b =>
+                {
+                    b.HasOne("ITHSManagement.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITHSManagement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ITHSManagement.Models.UserGroup", b =>
+                {
+                    b.HasOne("ITHSManagement.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITHSManagement.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });

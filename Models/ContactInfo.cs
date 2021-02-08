@@ -16,6 +16,11 @@ namespace ITHSManagement.Models
         public User User { get; set; }
         public ContactTypeEnum ContactType{ get; set; }
         public string Contact { get; set; }
+/*        public string Email { get; set; }
+        public string Street { get; set; }
+        public string Zipcode { get; set; }
+        public string City { get; set; }
+        public string Phone { get; set; }*/
     }
     public enum ContactTypeEnum
     {

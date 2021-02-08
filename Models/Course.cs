@@ -16,6 +16,8 @@ namespace ITHSManagement.Models
         public DateTime EndDate { get; set; }
         public string Description { get; set; }
         public string CourseAdmin { get; set; }
+        public ICollection<User> Members { get; set; }
+        public ICollection<Programme> Programmes { get; set; }
 
     }
 }

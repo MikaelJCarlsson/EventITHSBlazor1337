@@ -12,19 +12,27 @@ namespace ITHSManagement.Data
 
         public ProgramRepository(EFContext context)
         {
-            this.Context = context;
+            Context = context;
         }
-        public int GetProgramById(int programId)
+        public Task<List<Programme>> GetAllProgrammes()
         {
-            return programId;
+            var query = Context.Programmes.ToList();
+
+            return Task.FromResult(query);
         }
-        public void InsertProgram(StudentProgram utbildning)
+        public Task<Programme> GetProgramById(int programId)
+        {
+            var query = Context.Programmes
+                .Find(programId);
+            return Task.FromResult(query);
+        }
+        public void InsertProgram(Programme utbildning)
         {
             Context.Add(utbildning);
             Context.SaveChanges();
         }
 
-        public void UpdateStudent(Student student)
+/*        public void UpdateStudent(Student student)
         {
             var query = Context.Student
                 .Find(student.UserId);
@@ -44,6 +52,6 @@ namespace ITHSManagement.Data
 
             Context.Remove(query);
             Context.SaveChanges();
-        }
+        }*/
     }
 }

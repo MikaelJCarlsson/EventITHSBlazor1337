@@ -32,7 +32,6 @@ namespace ITHSManagement
             services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddScoped<FetchStudents>();
             services.AddScoped<StudentRepository>();
             services.AddScoped<ProgramRepository>();
             services.AddScoped<EmployeeService>();

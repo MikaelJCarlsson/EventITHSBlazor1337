@@ -1,4 +1,5 @@
 ﻿using ITHSManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,26 +33,36 @@ namespace ITHSManagement.Data
             Context.SaveChanges();
         }
 
-/*        public void UpdateStudent(Student student)
+        public Task<bool> AddUserToProgram(int userId, int programmeId)
         {
-            var query = Context.Student
-                .Find(student.UserId);
 
-            student.FirstName = query.FirstName;
-            student.LastName = query.LastName;
-            student.Birthdate = query.Birthdate;
-
-            Context.Update(student);
+            var user = Context.User.Include(x => x.Programme).Where(x => x.Id == userId).First();
+            var program = GetProgramById(programmeId).Result;
+            user.Programme.Add(program);
             Context.SaveChanges();
+            return Task.FromResult(true);
         }
-        public void DeleteStudent(Student student)
-        {
-            Console.WriteLine($"Deleting {student.UserId}");
-            var query = Context.User
-                .Find(student.UserId);
 
-            Context.Remove(query);
-            Context.SaveChanges();
-        }*/
+        /*        public void UpdateStudent(Student student)
+                {
+                    var query = Context.Student
+                        .Find(student.UserId);
+
+                    student.FirstName = query.FirstName;
+                    student.LastName = query.LastName;
+                    student.Birthdate = query.Birthdate;
+
+                    Context.Update(student);
+                    Context.SaveChanges();
+                }
+                public void DeleteStudent(Student student)
+                {
+                    Console.WriteLine($"Deleting {student.UserId}");
+                    var query = Context.User
+                        .Find(student.UserId);
+
+                    Context.Remove(query);
+                    Context.SaveChanges();
+                }*/
     }
 }

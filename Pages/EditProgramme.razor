@@ -1,20 +1,29 @@
-﻿@page "/editprogramme/{programmeid}"
+﻿@page "/editprogramme/{Programmeid:int}"
 @using ITHSManagement.Data
 @using ITHSManagement.Models
 @inject ProgramRepository Context
-<h3>Edit Programme</h3>
+@inject StudentRepository DB
+<h3>@Programme.ProgramName</h3>
 
 
+
+    <button @onclick="JoinTableTesting">TestRelations</button>
 
 @code {
 
     [Parameter]
-    public string programmeid { get; set; }
+    public int ProgrammeId { get; set; }
     public Programme Programme { get; set; }
+
+    private void JoinTableTesting()
+    {
+        DB.GetUserFromId();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        Programme = await Context.GetProgramById(Int32.Parse(programmeid));
+        Programme = await Context.GetProgramById(ProgrammeId);
+
 
     }
 }

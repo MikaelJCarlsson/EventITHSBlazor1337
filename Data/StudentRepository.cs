@@ -1,6 +1,7 @@
 ﻿using ITHSManagement.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,15 +15,23 @@ namespace ITHSManagement.Data
         {
             Context = context;
         }
+        public void GetUserFromId()
+        {
+            
+            
+        }
         public Task<List<Student>> GetAllStudents()
         {
+            
             var query = Context.Student.ToList();
 
             return Task.FromResult(query);
         }
-        public int GetStudentById(int studentId)
+        public Student GetStudentById(int studentId)
         {
-            return studentId;
+            var query = Context.Student
+                .Find(studentId);
+            return query;
         }
         public int InsertStudent(Student student)
         {

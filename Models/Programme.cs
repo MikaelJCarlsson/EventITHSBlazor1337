@@ -9,6 +9,7 @@ namespace ITHSManagement.Models
 {
     public class Programme
     {
+
         public int Id { get; set; }
         public string ProgramName { get; set; }
         public string YhNumber { get; set; }

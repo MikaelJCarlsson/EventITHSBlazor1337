@@ -195,33 +195,40 @@ else
     private Student student = new Student();
 
 
-    private void AddStudent()
+    private async Task AddStudent()
     {
-        int userId = sq.InsertStudent(student);
+        sq.Insert(student);
+        
+        int userId = student.UserId;
+        
+        Console.WriteLine(userId);
+        
 
-        if (ic.Email != null)
-        {
-            ContactInfo ci = new ContactInfo();
-            ci.UserId = userId;
-            ci.Contact = ic.Email;
-            ci.ContactType = ContactTypeEnum.Email;
-            sq.InsertContactInfo(ci);
-        }
-        if (ic.Phone != null)
-        {
-            ContactInfo ci = new ContactInfo();
-            ci.UserId = userId;
-            ci.Contact = ic.Phone;
-            ci.ContactType = ContactTypeEnum.PhoneNumber;
-            sq.InsertContactInfo(ci);
-        }
-        if (ic.Street != null)
-        {
-            ContactInfo ci = new ContactInfo();
-            ci.UserId = userId;
-            ci.Contact = ic.Street;
-            ci.ContactType = ContactTypeEnum.Street;
-            sq.InsertContactInfo(ci);
-        }
+        //if (ic.Email != null)
+        //{
+        //    ContactInfo ci = new ContactInfo();
+        //    ci.UserId = userId;
+        //    ci.Contact = ic.Email;
+        //    ci.ContactType = ContactTypeEnum.Email;
+        //    sq.InsertContactInfo(ci);
+        //}
+        //if (ic.Phone != null)
+        //{
+        //    ContactInfo ci = new ContactInfo();
+        //    ci.UserId = userId;
+        //    ci.Contact = ic.Phone;
+        //    ci.ContactType = ContactTypeEnum.PhoneNumber;
+        //    sq.InsertContactInfo(ci);
+        //}
+        //if (ic.Street != null)
+        //{
+        //    ContactInfo ci = new ContactInfo();
+        //    ci.UserId = userId;
+        //    ci.Contact = ic.Street;
+        //    ci.ContactType = ContactTypeEnum.Street;
+        //    sq.InsertContactInfo(ci);
+        //}
+
+
     }
 }

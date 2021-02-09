@@ -7,72 +7,29 @@ using System.Threading.Tasks;
 
 namespace ITHSManagement.Data
 {
-    public class StudentRepository
+    public class StudentRepository : Repository<Student>
     {
-        EFContext Context;
 
-        public StudentRepository(EFContext context)
+        public StudentRepository(EFContext context, UserRepository userRepository)
+            : base(context)
         {
-            Context = context;
-        }
-        public void GetUserFromId()
-        {
-            
-            
-        }
-        public Task<List<Student>> GetAllStudents()
-        {
-            
-            var query = Context.Student.ToList();
-
-            return Task.FromResult(query);
-        }
-        public Student GetStudentById(int studentId)
-        {
-            var query = Context.Student
-                .Find(studentId);
-            return query;
-        }
-        public int InsertStudent(Student student)
-        {
-            User user = new User();
-            user.UserType = UserTypeEnum.Student;
-            student.User = user;
-
-            Context.Add(student);
-            Context.SaveChanges();
-
-
-            return user.Id;
         }
 
-        public void UpdateStudent(Student student)
+
+        public override Task<int> Insert(Student student)
         {
-            var query = Context.Student
-                .Find(student.UserId);
-
-            student.FirstName = query.FirstName;
-            student.LastName = query.LastName;
-            student.Birthdate = query.Birthdate;
-
-            Context.Update(student);
-            Context.SaveChanges();
+            var transaction = context.Database.BeginTransaction();                   
+            student.User = new User();
+            student.User.UserType = UserTypeEnum.Administrator;
+            var i = base.Insert(student);
+            transaction.Commit();
+            return i;
         }
-        public void DeleteStudent(Student student)
-        {
-            Console.WriteLine($"Deleting {student.UserId}");
-            var query = Context.User
-                .Find(student.UserId);
 
-            Context.Remove(query);
-            Context.SaveChanges();
-        }
         public void InsertContactInfo(ContactInfo ci)
         {
-
-            Context.Add(ci);
-            Context.SaveChanges();
-
+            context.Add(ci);
+            context.SaveChanges();
         }
     }
 }

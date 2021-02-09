@@ -29,12 +29,14 @@ namespace ITHSManagement
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<EFContext>();
-            services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")));
+            services.AddDbContext<EFContext>(options => options.UseSqlServer(Configuration.GetConnectionString("sqlConnection")), ServiceLifetime.Transient);
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<StudentRepository>();
             services.AddScoped<ProgramRepository>();
+            services.AddScoped<UserRepository>();
             services.AddScoped<EmployeeService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

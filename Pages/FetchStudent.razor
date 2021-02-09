@@ -3,6 +3,7 @@
 @using ITHSManagement.Data
 @using ITHSManagement.Models
 @inject StudentRepository Context
+@inject UserRepository dbuser
 
 
 <h1 class="studentList">Student List</h1>
@@ -122,25 +123,35 @@
         this.student = s;
     }
 
-    private async void EditUser(Student student)
+    private async Task EditUser(Student student)
     {
-        Context.UpdateStudent(student);
-        students = await Context.GetAllStudents();
+        var t = Task.Run(() => Context.Update(student));
+        students = await t.ContinueWith(d => Context.Get().ToList());
 
         this.StateHasChanged();
     }
 
-    private async void DeleteUser(Student student)
+    private async Task DeleteUser(Student student)
     {
-        Context.DeleteStudent(student);
-        students = await Context.GetAllStudents();
+        //Behövs viktigt fråga micke.
+        var t = Task.Run(() => dbuser.Delete(student.UserId));
+        students = await t.ContinueWith(d => Context.Get().ToList());
+        this.StateHasChanged();
 
+    }
+
+    private async Task GetUsers()
+    {
+        students = await Task.FromResult(Context.Get().ToList());
         this.StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        students = await Context.GetAllStudents();
+
+        students = await Task.FromResult(Context
+            .Get(orderBy: q => q.OrderByDescending(x => x.FirstName))
+            .ToList());
 
     }
 }

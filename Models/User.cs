@@ -16,6 +16,7 @@ namespace ITHSManagement.Models
         public ICollection <Programme> Programme { get; set; }
         public ICollection <Course> Course { get; set; }
         public ICollection <Group> Group { get; set; }
+        public ICollection<ContactInfo> ContactInfos { get; set; }
 
     }
 

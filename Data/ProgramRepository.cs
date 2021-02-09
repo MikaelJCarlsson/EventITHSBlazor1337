@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ITHSManagement.Data
 {
-    public class ProgramRepository
+    public class ProgramRepository : Repository<Program>
     {
         EFContext Context;
 
-        public ProgramRepository(EFContext context)
+        public ProgramRepository(EFContext context) : base(context)
         {
             Context = context;
         }
